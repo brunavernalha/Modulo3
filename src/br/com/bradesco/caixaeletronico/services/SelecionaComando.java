@@ -12,7 +12,6 @@ public class SelecionaComando {
         this.listarComandos = new ListarComandosImpl();
         this.obtemComando = new ObtemComandoImpl();
         this.executaComandoEspecifico = new ExecutaComandoEspecificoImpl();
-
     }
     public boolean executar() {
         listarComandos.execute();

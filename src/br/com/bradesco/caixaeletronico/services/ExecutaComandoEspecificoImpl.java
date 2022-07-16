@@ -8,15 +8,18 @@ public class ExecutaComandoEspecificoImpl implements ExecutaComandoEspecifico {
 
     private final Deposito deposito;
     private final AbrirConta abrirConta;
-    private ExecutaComandoEspecifico retirarSaldo;
+    private final Saque saque;
+    private final Transferencia transferencia;
 
-    private Transferencia transferirSaldo;// 07/07
+
 
     public ExecutaComandoEspecificoImpl() {
+
         MemoriaContaRepository repository = new MemoriaContaRepository();
         this.deposito = new ExecutarDepositoImpl(repository);
+        this.saque = new SaqueImpl(repository);
         this.abrirConta = new AbrirContaImpl(repository);
-        this.transferirSaldo = new TransferenciaImpl(repository); // 07/07
+        this.transferencia = new TransferenciaImpl(repository);
     }
 
     @Override
@@ -28,12 +31,16 @@ public class ExecutaComandoEspecificoImpl implements ExecutaComandoEspecifico {
             System.out.println("Encerrando o programa");
             resultado = false;
 
-
         } else if (comando == 1) {
-            System.out.println("Sacando dinheiro");
+            System.out.println("Digite o número de sua conta: ");
+            int numeroDaConta = entrada.nextInt();
+            System.out.println("Digite o valor a ser sacado: ");
+            double valorASerSacado = entrada.nextInt();
+            this.saque.execute(valorASerSacado, numeroDaConta);
+
 
         } else if (comando == 2) {
-            System.out.println("Digite o número da conta: ");
+            System.out.println("Digite o número de sua conta: ");
             int numero = entrada.nextInt();
 
             System.out.println("Digite o valor a ser depositado: ");
@@ -42,23 +49,22 @@ public class ExecutaComandoEspecificoImpl implements ExecutaComandoEspecifico {
             this.deposito.execute(valor, numero);
             System.out.println("Depósito realizado");
 
+
         } else if (comando == 3) {
             abrirConta.execute();
+        }
 
-        } else if (comando == 4) { // 07/07
-            System.out.println("Digite o número da conta origem: ");
-            int numero = entrada.nextInt();
-
-            System.out.println("Digite o número da conta destino: ");
-            int numero = entrada.nextInt();
-
+        else if (comando == 4) {
+            System.out.println("Digite o número de sua conta: ");
+            int contaDestino = entrada.nextInt();
             System.out.println("Digite o valor a ser transferido: ");
             double valor = entrada.nextInt();
+            System.out.println("Digite a conta do favorecido: ");
+            String origem = entrada.next();
+            this.transferencia.execute(valor, contaDestino, origem);
+        }
 
-            this.transferirSaldo.execute(valor, numero, numero);
-            System.out.println("Transferencia realizado");
-
-        } else {
+        else {
             System.out.println("Comando inválido!");
         }
 

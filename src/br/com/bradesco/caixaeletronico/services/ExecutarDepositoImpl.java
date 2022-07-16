@@ -13,7 +13,7 @@ public class ExecutarDepositoImpl implements Deposito {
 
 
     @Override
-    public void execute(double valor, int numeroDaConta) {
+    public double execute(double valor, int numeroDaConta) {
 
         Conta conta = repository.findById(numeroDaConta);
         conta.adicionaSaldo(valor);
@@ -24,6 +24,7 @@ public class ExecutarDepositoImpl implements Deposito {
 
         System.out.println("Saldo da Conta : " + conta.getSaldo());
 
+        return valor;
     }
 
 }

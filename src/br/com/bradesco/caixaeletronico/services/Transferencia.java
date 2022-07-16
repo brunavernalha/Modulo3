@@ -8,13 +8,17 @@ import br.com.bradesco.caixaeletronico.model.Conta;
 
 public interface Transferencia {
 
+    double execute(double valor, int contaDestino, Conta origem);
+
     /**
-     *
-     * @param valor         Valor que quero transferir
-     * @param contaDestino  Número da conta que vai receber o dinheiro
-     * @param origem        Conta de onde vai partir a transação
+     * @param valor        Valor que quero transferir
+     * @param contaDestino Número da conta que vai receber o dinheiro
+     * @param origem       Conta de onde vai partir a transação
+     * @return
      */
 
-    void transferir(double valor, Conta contaDestino, Conta origem);
+    double transferir(double valor, int contaDestino, Conta origem);
+
+    double execute(double valor, int contaDestino, String origem);
 }
 
